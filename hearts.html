@@ -4,6 +4,19 @@
     var t = 0;
     var canvas = null;
     var context = null;
+    var heart1 = null;
+    var heart2 = null;
+
+    function heart(high, tipR, tipL, low, wideL, wideR, dentX, dentY){
+        this.high = high;
+        this.tipR = tipR;
+        this.tipL = tipL;
+        this.low = low;
+        this.wideL = wideL;
+        this.wideR = wideR;
+        this.dentX = dentX;
+        this.dentY = dentY;
+    }
 
     function init(){
         // Initialize Canvas.
@@ -11,19 +24,27 @@
         context = canvas.getContext("2d");
        
        // Put stuff in Canvas
-        context.moveTo(250,250);
-        context.bezierCurveTo(300,90,440,250,250,400);
+        heart1 = new heart(90,320,180,400,40,460,250,250)
+        drawHeart(heart1, "pink", "red");
+        heart2 = new heart(heart1.high/2, heart1.tipR/2, heart1.tipL/2, 
+                heart1.low/2, heart1.wideL/2, heart1.wideR/2, 
+                heart1.dentX/2, heart1.dentY/2); 
+        drawHeart(heart2, "red", "pink");
+    }
+
+    function drawHeart(lov, str, fil){
+        context.moveTo(lov.dentX, lov.dentY);
+        context.bezierCurveTo(lov.tipL, lov.high, lov.wideL, lov.dentY, 
+                lov.dentX, lov.low);
+        context.bezierCurveTo(lov.wideR, lov.dentY, lov.tipR, lov.high,
+                lov.dentX, lov.dentY);
         context.lineWidth=10;
-        context.strokeStyle="pink";
-        context.lineCap="round";
+        context.strokeStyle=str;
+        context.lineCap = "round";
         context.stroke();
-        
-        context.moveTo(250,250);
-        context.bezierCurveTo(200,90,60,250,250,400);
-        context.lineWidth=10;
-        context.strokeStyle="pink";
-        context.lineCap="round";
-        context.stroke();      
+        context.fillStyle=fil;
+        context.fill();
+        context.beginPath();
     }
 
 </script>
