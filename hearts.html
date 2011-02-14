@@ -1,8 +1,10 @@
 <html>
 <head>
+<link rel='stylesheet' type="text/css" 
+    href="http://fonts.google.apis.com/css?family=Tangerine">
 <script>
     var t = 0;
-    var timeInterval = 0;
+    var timeInterval = 10;
     var canvas = null;
     var context = null;
     var heart1 = null;
@@ -32,6 +34,8 @@
                 heart1.low/2, heart1.wideL/2, heart1.wideR/2, 
                 heart1.dentX/2, heart1.dentY/2); 
         drawHeart(heart2, "red", "pink");
+        context.font="20pt, Lucida";
+        context.fillText("Happy Valentine's Day!", 100, 10); 
         updateStage();
     }
 
@@ -66,8 +70,8 @@
         var curx = heart2.high + (heart2.low - heart2.high)/2;
         var cury = heart2.wideR + (heart2.wideL - heart2.wideR)/2;
 
-        var newx = heart1.dentX + r * Math.cos(count * Math.PI / 500 );
-        var newy = heart1.dentY + r * Math.sin(count * Math.PI / 500 );
+        var newx = heart1.dentX + r * Math.cos(count * Math.PI / 150 );
+        var newy = heart1.dentY + r * Math.sin(count * Math.PI / 150 );
         
         var diffx = heart2.dentX - newx;
         var diffy = heart2.dentY - newy;
@@ -81,6 +85,9 @@
         heart2.dentY = newy;
         drawHeart(heart2, "red", "pink");
         count= count + 1;
+        context.font="30pt Tangerine";
+        context.textAlign="center";
+        context.fillText("Happy Valentine's Day!", 250, 100); 
     }
 
     function clearCanvas(){
