@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title> Person </title>
+	<script>
+		var canvas = null;
+		var context = null;
+		
+		/* Points of Person */
+		var head;
+		var rightHand;
+		var leftHand;
+		var rightFoot;
+		var leftFoot;
+		
+		/* Pieces Definition */
+		function Point(x , y){
+			this.x = x;
+			this.y = y;
+		}
+		
+		function Limbs(startX, startY, endX, endY){
+			this.startX = startX;
+			this.startY = startY;			
+			this.endX = endX;
+			this.endY = endY;
+			
+			//this.start = new Point(startX, endX);
+			this.end = new Point(startY, endY);
+		}
+		
+		function Circle( centerX, centerY, radius ){
+			this.centerX = centerX;
+			this.centerY = centerY;
+			this.radius = radius;
+			
+			this.center = new Point(centerX, centerY);
+		}
+		
+		/* Initialization */
+		function init() { 
+			canvas = document.getElementById("mycanvas");
+			context = canvas.getContext("2d");
+			
+			head = new Circle(100, 100, 10);
+			rightHand = new Circle(150, 200, 10);
+			leftHand = new Circle (50, 200, 10 );
+			rightFoot = new Circle (150, 300, 10);
+			leftFoot = new Circle (50, 300, 10);
+			console.log("HERE");
+			
+			context.arc(head.centerX, head.centerY, head.radius, 0, 2*Math.PI, false);
+			context.strokeStyle = "black";
+			context.stroke();
+			
+			context.moveTo(head.centerX, head.centerY);
+			
+			context.lineTo(head.centerX, 160);
+			context.stroke();
+			context.lineTo(rightHand.centerX, rightHand.centerY);
+			context.stroke();
+			
+			context.beginPath();
+			context.arc(rightHand.centerX, rightHand.centerY, rightHand.radius, 0, 2*Math.PI, false);
+			context.strokeStyle = "orange";
+			context.stroke();
+			context.beginPath();
+
+			context.moveTo(head.centerX, 160);
+			context.lineTo(leftHand.centerX, leftHand.centerY);
+			context.stroke();
+
+			context.beginPath();
+			context.arc(leftHand.centerX, leftHand.centerY, leftHand.radius, 0, 2*Math.PI, false);
+			context.strokeStyle = "green";
+			//context.fill();
+			context.stroke();
+						
+			context.beginPath();
+			context.moveTo(head.centerX, 160);
+			context.lineTo(head.centerX, 250);
+			context.stroke();
+			context.lineTo(rightFoot.centerX, rightFoot.centerY);
+			context.stroke();
+			context.beginPath();
+			context.arc(rightFoot.centerX, rightFoot.centerY, rightFoot.radius, 0, 2*Math.PI, false);
+			context.strokeStyle = "blue";
+			context.stroke();
+			
+			context.beginPath();
+			context.moveTo(head.centerX, 250);
+			context.lineTo(leftFoot.centerX, leftFoot.centerY);
+
+		//	context.beginPath();
+			context.arc(leftFoot.centerX, leftFoot.centerY, leftFoot.radius, 0, 2*Math.PI, false);
+			
+			context.strokeStyle = "teal";
+			
+			context.stroke();
+
+			
+		}
+		
+		
+		
+		
+	</script>
+</head>
+<body onload="init()">
+	<canvas id="mycanvas"  height="500" width="500" > </canvas>
+</body>
+</html>
