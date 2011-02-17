@@ -42,7 +42,7 @@
 			canvas = document.getElementById("mycanvas");
 			context = canvas.getContext("2d");
 			
-			head = new Circle(100, 100, 10);
+			head = new Circle(100, 100, 30);
 			rightHand = new Circle(150, 200, 10);
 			leftHand = new Circle (50, 200, 10 );
 			rightFoot = new Circle (150, 300, 10);
@@ -52,7 +52,8 @@
 			context.arc(head.centerX, head.centerY, head.radius, 0, 2*Math.PI, false);
 			context.strokeStyle = "black";
 			context.stroke();
-			
+			context.fillStyle = "black";
+			context.fill();
 			context.moveTo(head.centerX, head.centerY);
 			
 			context.lineTo(head.centerX, 160);
@@ -60,11 +61,11 @@
 			context.lineTo(rightHand.centerX, rightHand.centerY);
 			context.stroke();
 			
+			
 			context.beginPath();
 			context.arc(rightHand.centerX, rightHand.centerY, rightHand.radius, 0, 2*Math.PI, false);
-			context.strokeStyle = "orange";
 			context.stroke();
-			context.beginPath();
+			context.fill();
 
 			context.moveTo(head.centerX, 160);
 			context.lineTo(leftHand.centerX, leftHand.centerY);
@@ -72,11 +73,9 @@
 
 			context.beginPath();
 			context.arc(leftHand.centerX, leftHand.centerY, leftHand.radius, 0, 2*Math.PI, false);
-			context.strokeStyle = "green";
-			//context.fill();
+			context.fill();
 			context.stroke();
 						
-			context.beginPath();
 			context.moveTo(head.centerX, 160);
 			context.lineTo(head.centerX, 250);
 			context.stroke();
@@ -84,18 +83,15 @@
 			context.stroke();
 			context.beginPath();
 			context.arc(rightFoot.centerX, rightFoot.centerY, rightFoot.radius, 0, 2*Math.PI, false);
-			context.strokeStyle = "blue";
+			context.fill();
 			context.stroke();
 			
-			context.beginPath();
 			context.moveTo(head.centerX, 250);
 			context.lineTo(leftFoot.centerX, leftFoot.centerY);
-
-		//	context.beginPath();
+			context.stroke();
+			context.beginPath();
 			context.arc(leftFoot.centerX, leftFoot.centerY, leftFoot.radius, 0, 2*Math.PI, false);
-			
-			context.strokeStyle = "teal";
-			
+			context.fill();
 			context.stroke();
 
 			
