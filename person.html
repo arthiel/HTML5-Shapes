@@ -6,14 +6,20 @@
 		var canvas = null;
 		var context = null;
 		
+		/*******************************************/
 		/* Points of Person */
+		/*******************************************/
+		
 		var head;
 		var rightHand;
 		var leftHand;
 		var rightFoot;
 		var leftFoot;
 		
-		/* Pieces Definition */
+		/*******************************************/		
+		/* Piece Definitions */
+		/*******************************************/
+		
 		function Point(x , y){
 			this.x = x;
 			this.y = y;
@@ -33,11 +39,14 @@
 			this.centerX = centerX;
 			this.centerY = centerY;
 			this.radius = radius;
-			
+						
 			this.center = new Point(centerX, centerY);
 		}
 		
+		/*******************************************/		
 		/* Initialization */
+		/*******************************************/
+		
 		function init() { 
 			canvas = document.getElementById("mycanvas");
 			context = canvas.getContext("2d");
@@ -47,7 +56,6 @@
 			leftHand = new Circle (50, 200, 10 );
 			rightFoot = new Circle (150, 300, 10);
 			leftFoot = new Circle (50, 300, 10);
-			console.log("HERE");
 			
 			context.arc(head.centerX, head.centerY, head.radius, 0, 2*Math.PI, false);
 			context.strokeStyle = "black";
@@ -60,8 +68,7 @@
 			context.stroke();
 			context.lineTo(rightHand.centerX, rightHand.centerY);
 			context.stroke();
-			
-			
+					
 			context.beginPath();
 			context.arc(rightHand.centerX, rightHand.centerY, rightHand.radius, 0, 2*Math.PI, false);
 			context.stroke();
@@ -92,17 +99,52 @@
 			context.beginPath();
 			context.arc(leftFoot.centerX, leftFoot.centerY, leftFoot.radius, 0, 2*Math.PI, false);
 			context.fill();
-			context.stroke();
-
-			
+			context.stroke();	
 		}
 		
+		/*******************************************/		
+		/* Event Handling */
+		/*******************************************/
 		
+		function click(e) {
+			var mouseX = e.clientX - canvas.offsetLeft;
+			var mouseY = e.clientY - canvas.offsetTop;
+			var coord = "x: " + mouseX + " y: " + mouseY;
+			alert(coord);
+			checkObjects(mouseX, mouseY);
+		}
 		
+		function checkObjects( mouseX, mouseY ){
+			if(inCircle(mouseX, mouseY, head)){
+				alert("Head.");
+			}
+			if(inCircle(mouseX, mouseY, rightHand)){
+				alert("Right hand.");
+			}
+			if(inCircle(mouseX, mouseY, leftHand)){
+				alert("Left hand.");
+			}
+			if(inCircle(mouseX, mouseY, rightFoot)){
+				alert("Right foot.");
+			}
+			if(inCircle(mouseX, mouseY, leftFoot)){
+				alert("Left foot.");
+			}
+		}
+
+		function inCircle(mouseX, mouseY, circ){
+			if( (mouseX < (circ.centerX + circ.radius) &&
+				 mouseX > (circ.centerX - circ.radius)) &&
+				(mouseY < (circ.centerY + circ.radius) &&
+				 mouseY > (circ.centerY - circ.radius)) ){
+					return true;	 
+			}
+			return false;
+		}
 		
 	</script>
 </head>
 <body onload="init()">
-	<canvas id="mycanvas"  height="500" width="500" > </canvas>
+	<canvas id="mycanvas"  height="500" width="500" onclick="click(evt)"> </canvas>
 </body>
 </html>
