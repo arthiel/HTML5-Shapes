@@ -7,6 +7,13 @@
 		var context = null;
 		
 		/*******************************************/
+		/* Constants */
+		/*******************************************/
+		
+		var focusRadius = 30;
+		var nodeRadius = 10;
+		
+		/*******************************************/
 		/* Points of Person */
 		/*******************************************/
 		
@@ -57,6 +64,14 @@
 			rightFoot = new Circle (150, 300, 10);
 			leftFoot = new Circle (50, 300, 10);
 			
+			drawCanvas();
+		}
+		
+		/*******************************************/
+		/* Draw Methods */
+		/*******************************************/
+		
+		function drawCanvas(){
 			context.arc(head.centerX, head.centerY, head.radius, 0, 2*Math.PI, false);
 			context.strokeStyle = "black";
 			context.stroke();
@@ -102,6 +117,11 @@
 			context.stroke();	
 		}
 		
+		function clearCanvas(){
+			context.clearRect(0,0,canvas.width, canvas.height);
+			context.beginPath();
+		}
+		
 		/*******************************************/		
 		/* Event Handling */
 		/*******************************************/
@@ -110,29 +130,36 @@
 			var mouseX = e.clientX - canvas.offsetLeft;
 			var mouseY = e.clientY - canvas.offsetTop;
 			var coord = "x: " + mouseX + " y: " + mouseY;
-			alert(coord);
+			//alert(coord);
 			checkObjects(mouseX, mouseY);
 		}
 		
 		function checkObjects( mouseX, mouseY ){
 			if(inCircle(mouseX, mouseY, head)){
-				alert("Head.");
+				//alert("Head.");
+				makeFocus(head);
 			}
 			if(inCircle(mouseX, mouseY, rightHand)){
-				alert("Right hand.");
+				//alert("Right hand.");
+				makeFocus(rightHand);
 			}
 			if(inCircle(mouseX, mouseY, leftHand)){
-				alert("Left hand.");
+				//alert("Left hand.");
+				makeFocus(leftHand);
 			}
 			if(inCircle(mouseX, mouseY, rightFoot)){
-				alert("Right foot.");
+				//alert("Right foot.");
+				makeFocus(rightFoot);
 			}
 			if(inCircle(mouseX, mouseY, leftFoot)){
-				alert("Left foot.");
+				//alert("Left foot.");
+				makeFocus(leftFoot);
 			}
 		}
 
 		function inCircle(mouseX, mouseY, circ){
+			//checks the square of the circle, more accurate circle
+			//detection will be necessary later.
 			if( (mouseX < (circ.centerX + circ.radius) &&
 				 mouseX > (circ.centerX - circ.radius)) &&
 				(mouseY < (circ.centerY + circ.radius) &&
@@ -140,6 +167,19 @@
 					return true;	 
 			}
 			return false;
+		}
+		
+		function makeFocus( focus ) {
+			head.radius = nodeRadius;
+			rightHand.radius = nodeRadius;
+			leftHand.radius = nodeRadius;
+			rightFoot.radius = nodeRadius;
+			leftFoot.radius = nodeRadius;
+			focus.radius = focusRadius;
+			
+			clearCanvas();
+			drawCanvas();
+			
 		}
 		
 	</script>
