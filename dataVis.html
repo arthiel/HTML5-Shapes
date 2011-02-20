@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+	<script>
+		var canvas = null;
+		var context = null;
+		
+		var count = 0;
+		
+		/***********************/
+		/* Constants */
+		/***********************/
+		var DECR = 10;		// The decrement value for nodes.
+		var FOCUSR = 100;	// Radius of focus circle.
+		var NODER = 60; 	// Inital radius of node circle.
+		var OUTER = 200; 	// Outer rim radius
+		
+		/***********************/
+		/* Data Fields */
+		/***********************/
+		var subject1 = null;
+		var person1 = null;
+		var person2 = null;
+		var person3 = null;
+		var person4 = null;
+		var person5 = null;
+		
+		function dataDetails(voteCount, field){
+			this.voteCount = voteCount;
+			this.field = field;
+		}
+		
+		/***********************/
+		/* Initialization */
+		/***********************/
+		function Circle(x, y, data) {
+			this.x = x;
+			this.y = y;
+			this.data = data;
+		}
+		
+		/***********************/
+		/* Initialization */
+		/***********************/
+		function init (){
+			canvas = document.getElementById("mycanvas");
+			context = canvas.getContext("2d");
+			
+			subject1 = new Circle(300,300, null); 
+			context.arc(subject1.x,subject1.y, FOCUSR, 0,2*Math.PI, false);
+			context.fillStyle = "orange";
+			context.fill();
+			
+			inform();
+			drawValues(person1);
+			drawValues(person2);
+			drawValues(person3);
+			drawValues(person4);
+			drawValues(person5);
+		}
+		
+		/***********************/
+		/* Acquire Information */
+		/***********************/
+		function inform(){
+			subject1.data = dataDetails(100, "PERSON");
+			
+			person1 = new Circle(0,0,null);
+			person1.data = new dataDetails(60, "Emily");
+			outerRim(person1);
+			
+			person2 = new Circle(0,0,null);
+			person2.data = new dataDetails(50, "Aaron");
+			outerRim(person2);
+			
+			person3 = new Circle(0,0,null);
+			person3.data = new dataDetails(40, "Sean");
+			outerRim(person3);
+			
+			person4 = new Circle(0,0,null);
+			person4.data = new dataDetails(80, "Jon");
+			outerRim(person4);
+			
+			person5 = new Circle(0,0,null);
+			person5.data = new dataDetails(20, "Grant");
+			outerRim(person5);
+		}		
+		
+		/***********************/
+		/* Draw Data */
+		/***********************/
+		function drawValues(node){
+			context.beginPath();
+			context.fillStyle = 'rgba(255, 0, 0, '+ node.data.voteCount *.01 +')';
+			context.arc(node.x, node.y, NODER, 0, 2*Math.PI, false);
+			console.log(context.fillStyle);
+			context.fill();
+			context.textAlign = "center";
+			context.font = "20pt Arial";
+			context.fillStyle = "white";
+			context.fillText(node.data.field, node.x, node.y);
+		}
+		
+		function outerRim(node){
+			// radius should be 150px.
+			
+			node.x = subject1.x + OUTER * Math.cos( count * Math.PI / 15 );
+			node.y = subject1.y + OUTER * Math.sin( count * Math.PI / 15 );
+			
+			count += 5;
+		}
+		
+		function clearCanvas(){
+			canvas.clearRect(0,0,canvas.height, canvas.width);
+		}
+	</script>
+	
+</head>
+<body onload="init()">
+	<canvas id="mycanvas" width="900" height="800"></canvas>
+</body
+</html>
